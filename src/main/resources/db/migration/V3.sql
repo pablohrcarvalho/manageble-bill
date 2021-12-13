@@ -1,0 +1,1 @@
+CREATE TABLE product (id BIGINT PRIMARY KEY, name TEXT);

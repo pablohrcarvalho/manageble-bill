@@ -11,6 +11,8 @@ public class CategoryResource {
 
 	private final CategoryRepository categoryRepository;
 
+	Category category1;
+
 	public CategoryResource(CategoryRepository categoryRepository) {
 		this.categoryRepository = categoryRepository;
 	}
@@ -24,6 +26,18 @@ public class CategoryResource {
 	@PostMapping("/save")
 	public ResponseEntity<?> save(@RequestBody Category category) {
 		categoryRepository.save(category);
+		return ResponseEntity.ok().build();
+	}
+
+	@PostMapping("/delete")
+	public ResponseEntity<?> delete(){
+		categoryRepository.deleteById(category1.getId());
+		return ResponseEntity.ok().build();
+	}
+
+	@PostMapping("/deleteAll")
+	public ResponseEntity<?> deleteAll(){
+		categoryRepository.deleteAll();
 		return ResponseEntity.ok().build();
 	}
 

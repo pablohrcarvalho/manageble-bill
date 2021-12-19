@@ -12,6 +12,8 @@ public class ProductResource {
 
     private final ProductRepository productRepository;
 
+    Product product1;
+
     public ProductResource(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
@@ -27,4 +29,17 @@ public class ProductResource {
         productRepository.save(product);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/delete")
+    public ResponseEntity delete(){
+        productRepository.deleteById(product1.getId());
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/deleteAll")
+    public ResponseEntity deleteAll(){
+        productRepository.deleteAll();
+        return ResponseEntity.ok().build();
+    }
+
 }

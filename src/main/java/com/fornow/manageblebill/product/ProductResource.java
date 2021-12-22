@@ -1,10 +1,12 @@
 package com.fornow.manageblebill.product;
 
+import com.fornow.manageblebill.categoria.Category;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 ;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/product")
@@ -24,19 +26,25 @@ public class ProductResource {
         return ResponseEntity.ok(products);
     }
 
+    @GetMapping("/fetch/{id}")
+    public ResponseEntity<?> fetchId(@PathVariable("id") String id) {
+        Optional<Product> products = productRepository.findById(Long.parseLong(id));
+        return ResponseEntity.ok(products);
+    }
+
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody Product product){
         productRepository.save(product);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/delete")
-    public ResponseEntity delete(){
-        productRepository.deleteById(product1.getId());
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity delete(@PathVariable("id") String id){
+        productRepository.deleteById(Long.parseLong(id));
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/deleteAll")
+    @DeleteMapping("/deleteAll")
     public ResponseEntity deleteAll(){
         productRepository.deleteAll();
         return ResponseEntity.ok().build();

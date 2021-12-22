@@ -4,14 +4,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/category")
 public class CategoryResource {
 
 	private final CategoryRepository categoryRepository;
-
-	Category category1;
 
 	public CategoryResource(CategoryRepository categoryRepository) {
 		this.categoryRepository = categoryRepository;
@@ -23,19 +22,25 @@ public class CategoryResource {
 		return ResponseEntity.ok(categorias);
 	}
 
+	@GetMapping("/fetch/{id}")
+	public ResponseEntity<?> fetchId(@PathVariable("id") String id) {
+		Optional<Category> categorias = categoryRepository.findById(Long.parseLong(id));
+		return ResponseEntity.ok(categorias);
+	}
+
 	@PostMapping("/save")
 	public ResponseEntity<?> save(@RequestBody Category category) {
 		categoryRepository.save(category);
 		return ResponseEntity.ok().build();
 	}
 
-	@PostMapping("/delete")
-	public ResponseEntity<?> delete(){
-		categoryRepository.deleteById(category1.getId());
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<?> delete(@PathVariable("id") String id){
+		categoryRepository.deleteById(Long.parseLong(id));
 		return ResponseEntity.ok().build();
 	}
 
-	@PostMapping("/deleteAll")
+	@DeleteMapping("/deleteAll")
 	public ResponseEntity<?> deleteAll(){
 		categoryRepository.deleteAll();
 		return ResponseEntity.ok().build();

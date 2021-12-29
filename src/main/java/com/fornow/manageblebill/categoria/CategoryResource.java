@@ -28,6 +28,12 @@ public class CategoryResource {
 		return ResponseEntity.ok(categorias);
 	}
 
+	@GetMapping("/fetchByDescription/{description}")
+	public ResponseEntity<?> fetchByDescription(@PathVariable("description") String description) {
+		List<Category> categories = categoryRepository.findAllByDescription(description);
+		return ResponseEntity.ok(categories);
+	}
+
 	@PostMapping("/save")
 	public ResponseEntity<?> save(@RequestBody Category category) {
 		categoryRepository.save(category);

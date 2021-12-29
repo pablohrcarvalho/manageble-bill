@@ -1,0 +1,1 @@
+CREATE TABLE livro (id BIGINT PRIMARY KEY, autor_id BIGINT);
